@@ -1,12 +1,4 @@
-😂 fair enough — learning **gRPC properly** is a *very* valid goal.
-
-Here’s a **revised README**, explicitly framed as a **learning / study project**, with **no auth**, and a **clean placeholder for an embedded demo video**.
-
-You can replace your current README with this.
-
----
-
-# gRPC CLI Chat (Learning Project)
+# gRPC CLI Chat
 
 A **command-line chat application** built to **learn and deeply understand gRPC**, especially **bidirectional streaming**, **event-driven communication**, and **concurrent client handling** in Go.
 
