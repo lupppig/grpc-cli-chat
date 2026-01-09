@@ -2,12 +2,15 @@ syntax = "proto3";
 
 package chat;
 
-option  go_package = "chat/"
+option  go_package = "chat/";
 
 
 
+// chat service rpc
 service ChatService {
+	// rpc chat stream for client and server
   rpc Chat(stream ClientEvent) returns (stream ServerEvent);
+  // rpc health check function...
   rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
 }
 
@@ -18,7 +21,6 @@ message ClientEvent {
   oneof event {
     ChatMessageEvent chat_message = 1;
     TypingEvent typing_event = 2;
-    UserEvent user_event = 3;
   }
 }
 
@@ -29,8 +31,9 @@ message ClientEvent {
 message ServerEvent {
   oneof event {
     ChatMessageEvent chat_message = 1;
-    TypingEvent typing_event = 2;
+    TypingEventType typing_event = 2;
     SystemEvent system_event = 3;
+    UserEvent user_event = 4;
   }
 }
 
@@ -40,7 +43,8 @@ message ServerEvent {
 // --------------------
 message ChatMessageEvent {
   string message = 1;
-  int64 timestamp = 2;
+  string username = 2;
+  int64 timestamp = 3;
 }
 
 // --------------------
@@ -68,6 +72,10 @@ message UserEvent {
   int64 timestamp = 2;
 }
 
+message TypingEvent {
+  TypingEventType type = 1;
+  int64 timestamp = 2;
+}
 // --------------------
 // System Messages
 // --------------------
