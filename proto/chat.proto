@@ -21,6 +21,7 @@ message ClientEvent {
   oneof event {
     ChatMessageEvent chat_message = 1;
     TypingEvent typing_event = 2;
+	UserEvent user_event =  3;
   }
 }
 
@@ -31,7 +32,7 @@ message ClientEvent {
 message ServerEvent {
   oneof event {
     ChatMessageEvent chat_message = 1;
-    TypingEventType typing_event = 2;
+    TypingEvent typing_event = 2;
     SystemEvent system_event = 3;
     UserEvent user_event = 4;
   }
@@ -69,12 +70,14 @@ enum UserEventType {
 
 message UserEvent {
   UserEventType type = 1;
-  int64 timestamp = 2;
+  string username = 2;
+  int64 timestamp = 3;
 }
 
 message TypingEvent {
-  TypingEventType type = 1;
-  int64 timestamp = 2;
+	string username = 1;
+  	int64 timestamp = 2;
+  	TypingEventType type = 3;
 }
 // --------------------
 // System Messages
