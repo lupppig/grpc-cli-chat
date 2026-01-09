@@ -2,11 +2,6 @@
 
 A **command-line chat application** built to **learn and deeply understand gRPC**, especially **bidirectional streaming**, **event-driven communication**, and **concurrent client handling** in Go.
 
-> ⚠️ **This project intentionally has no authentication.**
-> Usernames are trusted inputs. The focus is on **gRPC mechanics**, not security.
-
----
-
 ## 🎯 Purpose
 
 This project exists to:
