@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package chat;
+
+option  go_package = "chat/"
+
+
+
+service ChatService {
+  rpc Chat(stream ClientEvent) returns (stream ServerEvent);
+  rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+// --------------------
+// Client → Server
+// --------------------
+message ClientEvent {
+  oneof event {
+    ChatMessageEvent chat_message = 1;
+    TypingEvent typing_event = 2;
+    UserEvent user_event = 3;
+  }
+}
+
+
+// --------------------
+// Server → Client
+// --------------------
+message ServerEvent {
+  oneof event {
+    ChatMessageEvent chat_message = 1;
+    TypingEvent typing_event = 2;
+    SystemEvent system_event = 3;
+  }
+}
+
+
+// --------------------
+// Chat Messages
+// --------------------
+message ChatMessageEvent {
+  string message = 1;
+  int64 timestamp = 2;
+}
+
+// --------------------
+// Typing Events
+// --------------------
+enum TypingEventType {
+  TYPING_UNKNOWN = 0;
+  TYPING_START = 1;
+  TYPING_STOP = 2;
+}
+
+
+// --------------------
+// User Lifecycle Events
+// --------------------
+enum UserEventType {
+  USER_UNKNOWN = 0;
+  USER_JOINED = 1;
+  USER_LEFT = 2;
+}
+
+
+message UserEvent {
+  UserEventType type = 1;
+  int64 timestamp = 2;
+}
+
+// --------------------
+// System Messages
+// --------------------
+message SystemEvent {
+  string message = 1;
+  int64 timestamp = 2;
+}
+
+
+// --------------------
+// Health Check
+// --------------------
+message HealthCheckRequest {}
+
+message HealthCheckResponse {
+  string status = 1;
+  int32 active_clients = 2;
+  int64 uptime_seconds = 3;
+}

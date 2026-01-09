@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -e
+
+CONTAINER_NAME="redis"
+IMAGE_NAME="redis:7-alpine"
+REDIS_PORT=6379
+
+echo "🔍 Checking Redis container status..."
+
+if docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+    echo "✅ Redis container exists"
+
+    if docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"; then
+        echo "🚀 Redis is already running"
+    else
+        echo "▶️  Starting existing Redis container..."
+        docker start "${CONTAINER_NAME}"
+    fi
+else
+    echo "📦 Redis container not found"
+    echo "⬇️  Pulling Redis image..."
+    docker pull "${IMAGE_NAME}"
+
+    echo "🚀 Creating and starting Redis container..."
+    docker run -d \
+        --name "${CONTAINER_NAME}" \
+        -p "${REDIS_PORT}:6379" \
+        --restart unless-stopped \
+        "${IMAGE_NAME}"
+fi
+
+echo "✅ Redis is up and running on port ${REDIS_PORT}"
