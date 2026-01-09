@@ -17,8 +17,7 @@ This project exists to:
 ## 🎥 Demo (Video)
 
 ## Demo
-[![Watch Demo](demo.png)](https://streamable.com/u55idz)
-
+https://github.com/user-attachments/assets/69a49bce-93a9-46de-8f7f-0a1f04596bff
 
 
 ---
